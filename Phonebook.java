@@ -19,7 +19,8 @@ public class Phonebook
     public int getSize()
     {
         // Complete this method
-        return 0;
+        // Return the number of contacts stored in this phonebook (excluding null indices).
+        return this.size;
     }
 
     /**
@@ -31,6 +32,11 @@ public class Phonebook
     public Person getContactAtIndex(int index)
     {
         // Complete this method
+        // Return the contact at the given index where a Person object is assigned else returns null.
+        if (index >= 0 && index < this.getSize())
+        {
+            return this.contacts[index];
+        }
         return null;
     }
 
