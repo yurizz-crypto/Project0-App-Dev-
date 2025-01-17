@@ -49,6 +49,15 @@ public class Phonebook
     public Person getContact(String id)
     {
         // Complete this method
+        // Return the contact with the given id. If it does not exist, return null.
+        // Use the size of the phonebook to iterate through the array except the null indices.
+        for (int i = 0; i < this.getSize(); i++)
+        {
+            if (this.contacts[i].getId().equals(id))
+            {
+                return this.contacts[i];
+            }
+        }
         return null;
     }
 
