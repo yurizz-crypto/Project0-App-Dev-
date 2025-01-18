@@ -93,6 +93,16 @@ public class Phonebook
     private void increasePhonebookMaxSize()
     {
         // Complete this method
+        // Increase the size of the phonebook by 2 times.
+        Person[] newContacts = new Person[this.contacts.length * 2];
+        // Copy the existing contacts to the new array.
+        for (int i = 0; i < this.getSize(); i++)
+        {
+            newContacts[i] = this.contacts[i];
+        }
+        // Assign the new array to the existing contacts.
+        this.contacts = newContacts;
+
     }
 
     /**
