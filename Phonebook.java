@@ -113,6 +113,10 @@ public class Phonebook
     public void insert(Person p)
     {
         // Complete this method
+        if (this.size == this.contacts.length)
+        {
+            this.increasePhonebookMaxSize();
+        }
     }
 
     /**
