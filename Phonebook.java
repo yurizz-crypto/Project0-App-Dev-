@@ -33,7 +33,7 @@ public class Phonebook
     {
         // Complete this method
         // Return the contact at the given index where a Person object is assigned else returns null.
-        if (index >= 0 && index < this.getSize())
+        if (this.getSize() > index && index >= 0)
         {
             return this.contacts[index];
         }
@@ -118,7 +118,9 @@ public class Phonebook
             this.increasePhonebookMaxSize();
         }
         int index = this.findIndexInsertion(p);
-        this.adjustPhonebook(index, this.size, "f");
+        this.adjustPhonebook(index, this.getSize(), "f");
+        this.contacts[index] = p;
+        this.incrSize();
     }
 
     /**

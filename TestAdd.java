@@ -25,8 +25,15 @@ public class TestAdd
         Person p2 = new Person("321", "Maria", "Clara", "Female", "Maiden", "18721", 63, 122);
         Person p3 = new Person("67667", "Jose", "Rizal", "Male", "Makata", "19911", 60, 12);
         pb.insert(p1);
+        System.out.println(pb.getContactAtIndex(0));
         pb.insert(p2);
+        System.out.println(pb.getContactAtIndex(0));
+        System.out.println(pb.getContactAtIndex(1));
         pb.insert(p3);
+        System.out.println(pb.getContactAtIndex(0));
+        System.out.println(pb.getContactAtIndex(1));
+        System.out.println(pb.getContactAtIndex(2));
+
         assertEquals(pb.getContactAtIndex(0).getFullName(), "Maria Clara");
         assertEquals(pb.getContactAtIndex(2).getFullName(), "Jose Rizal");
     }
@@ -59,5 +66,13 @@ public class TestAdd
         pb.insert(p3);
         assertEquals(pb.getContactAtIndex(4).getFullName(), "David Teeger");
         assertEquals(pb.getContactAtIndex(0).getFullName(), "Charlizz Betista");
+    }
+    public static void main(String[] args)
+    {
+        TestAdd test = new TestAdd();
+        test.test1();
+        test.test2();
+        test.test3();
+        test.test4();
     }
 }
