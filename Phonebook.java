@@ -118,7 +118,7 @@ public class Phonebook
             this.increasePhonebookMaxSize();
         }
         int index = this.findIndexInsertion(p);
-        this.adjustPhonebook(index, this.getSize(), "f");
+        this.adjustPhonebook(index, this.getSize(), "b");
         this.contacts[index] = p;
         this.incrSize();
     }
@@ -132,18 +132,21 @@ public class Phonebook
     private int findIndexInsertion(Person p)
     {
         // Complete this method
-        // Find the index where the person object should be inserted.
-        for (int i = 0; i < this.size; i++) 
-        // Use the size of the phonebook to iterate through the array except the null indices.
+        // If the phonebook is empty, return 0.
+        if (this.getSize() == 0)
         {
-            // Compare the person object with the given person object.
+            return 0;
+        }
+        // Iterate through the phonebook to find the appropriate index to insert the person object.
+        for (int i = 0; i < this.size; i++) 
+        {
             if (this.contacts[i].compareTo(p) > 0)
             {
-                // Return the index where the person object should be inserted.
                 return i;
             }
         }
-        return 0;
+        // If the person object is the last one to be inserted, return the last index.
+        return this.getSize() - 1;
     }
 
     /**
@@ -185,7 +188,9 @@ public class Phonebook
         {
             for (int i = end; i > start; i--)
             {
-                this.contacts[i] = this.contacts[i - 1];
+                if (i - 1 >= 0 && i < this.getSize()){
+                    this.contacts[i] = this.contacts[i - 1];
+                }
             }
         }
     }

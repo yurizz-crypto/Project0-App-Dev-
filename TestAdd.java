@@ -26,13 +26,26 @@ public class TestAdd
         Person p3 = new Person("67667", "Jose", "Rizal", "Male", "Makata", "19911", 60, 12);
         pb.insert(p1);
         System.out.println(pb.getContactAtIndex(0));
-        pb.insert(p2);
-        System.out.println(pb.getContactAtIndex(0));
         System.out.println(pb.getContactAtIndex(1));
-        pb.insert(p3);
+        System.out.println(pb.getContactAtIndex(2));
+        System.out.println(pb.getContactAtIndex(3));
+
+
+        pb.insert(p2);
+        System.out.println("\n");
         System.out.println(pb.getContactAtIndex(0));
         System.out.println(pb.getContactAtIndex(1));
         System.out.println(pb.getContactAtIndex(2));
+
+        pb.insert(p3);
+        System.out.println("\n");
+        System.out.println(pb.getContactAtIndex(0));
+        System.out.println(pb.getContactAtIndex(1));
+        System.out.println(pb.getContactAtIndex(2));
+        System.out.println(pb.getContactAtIndex(3));
+        System.out.println(pb.getContactAtIndex(4));
+
+        System.out.println("\n");
 
         assertEquals(pb.getContactAtIndex(0).getFullName(), "Maria Clara");
         assertEquals(pb.getContactAtIndex(2).getFullName(), "Jose Rizal");
