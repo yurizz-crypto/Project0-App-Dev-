@@ -113,14 +113,30 @@ public class Phonebook
     public void insert(Person p)
     {
         // Complete this method
+        for (int i = 0; i < this.size; i++)
+        {
+            if (this.contacts[i] != null && this.contacts[i].getFullName().equals(p.getFullName()))
+            {
+                return;
+            }
+        }
+        
         if (this.size == this.contacts.length)
         {
             this.increasePhonebookMaxSize();
         }
+
         int index = this.findIndexInsertion(p);
-        this.adjustPhonebook(index, this.getSize(), "b");
-        this.contacts[index] = p;
+
+        if (index == this.size) {
+            this.contacts[index] = p;
+        } else {
+            this.adjustPhonebook(index, this.getSize(), "f");
+            this.contacts[index] = p;
+        }
+
         this.incrSize();
+
     }
 
     /**
@@ -140,12 +156,12 @@ public class Phonebook
         // Iterate through the phonebook to find the appropriate index to insert the person object.
         for (int i = 0; i < this.size; i++) 
         {
-            if (this.contacts[i].compareTo(p) > 0)
+            if (this.contacts[i] != null && this.contacts[i].compareTo(p) > 0)
             {
                 return i;
             }
         }
-        // If the person object is the last one to be inserted, return the last index.
+        // If the person object is the last one to be inserted, return the next index.
         return this.getSize() - 1;
     }
 
@@ -180,7 +196,10 @@ public class Phonebook
             // Move the contacts from the starting index to the ending index following a direction.
             for (int i = start; i < end; i++)
             {
-                this.contacts[i] = this.contacts[i + 1];
+                if (i + 1 < this.getSize())
+                {
+                    this.contacts[i + 1] = this.contacts[i];
+                }
             }
         }
         // Move the contacts from the ending index to the starting index following a direction.
@@ -189,7 +208,7 @@ public class Phonebook
             for (int i = end; i > start; i--)
             {
                 if (i - 1 >= 0 && i < this.getSize()){
-                    this.contacts[i] = this.contacts[i - 1];
+                    this.contacts[i - 1] = this.contacts[i];
                 }
             }
         }
