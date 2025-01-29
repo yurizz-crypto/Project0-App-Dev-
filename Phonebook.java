@@ -19,8 +19,7 @@ public class Phonebook
     public int getSize()
     {
         // Complete this method
-        // Return the number of contacts stored in this phonebook (excluding null indices).
-        return this.size;
+        return 0;
     }
 
     /**
@@ -32,11 +31,6 @@ public class Phonebook
     public Person getContactAtIndex(int index)
     {
         // Complete this method
-        // Return the contact at the given index where a Person object is assigned else returns null.
-        if (this.getSize() > index && index >= 0)
-        {
-            return this.contacts[index];
-        }
         return null;
     }
 
@@ -49,15 +43,6 @@ public class Phonebook
     public Person getContact(String id)
     {
         // Complete this method
-        // Return the contact with the given id. If it does not exist, return null.
-        // Use the size of the phonebook to iterate through the array except the null indices.
-        for (int i = 0; i < this.getSize(); i++)
-        {
-            if (this.contacts[i].getId().equals(id))
-            {
-                return this.contacts[i];
-            }
-        }
         return null;
     }
 
@@ -93,16 +78,6 @@ public class Phonebook
     private void increasePhonebookMaxSize()
     {
         // Complete this method
-        // Increase the size of the phonebook by 2 times.
-        Person[] newContacts = new Person[this.contacts.length * 2];
-        // Copy the existing contacts to the new array.
-        for (int i = 0; i < this.getSize(); i++)
-        {
-            newContacts[i] = this.contacts[i];
-        }
-        // Assign the new array to the existing contacts.
-        this.contacts = newContacts;
-
     }
 
     /**
@@ -113,30 +88,6 @@ public class Phonebook
     public void insert(Person p)
     {
         // Complete this method
-        for (int i = 0; i < this.size; i++)
-        {
-            if (this.contacts[i] != null && this.contacts[i].getFullName().equals(p.getFullName()))
-            {
-                return;
-            }
-        }
-        
-        if (this.size == this.contacts.length)
-        {
-            this.increasePhonebookMaxSize();
-        }
-
-        int index = this.findIndexInsertion(p);
-
-        if (index == this.size) {
-            this.contacts[index] = p;
-        } else {
-            this.adjustPhonebook(index, this.getSize(), "f");
-            this.contacts[index] = p;
-        }
-
-        this.incrSize();
-
     }
 
     /**
@@ -148,21 +99,7 @@ public class Phonebook
     private int findIndexInsertion(Person p)
     {
         // Complete this method
-        // If the phonebook is empty, return 0.
-        if (this.getSize() == 0)
-        {
-            return 0;
-        }
-        // Iterate through the phonebook to find the appropriate index to insert the person object.
-        for (int i = 0; i < this.size; i++) 
-        {
-            if (this.contacts[i] != null && this.contacts[i].compareTo(p) > 0)
-            {
-                return i;
-            }
-        }
-        // If the person object is the last one to be inserted, return the next index.
-        return this.getSize() - 1;
+        return 0;
     }
 
     /**
@@ -190,28 +127,6 @@ public class Phonebook
     private void adjustPhonebook(int start, int end, String direction)
     {
         // Complete this method...
-        // Adjust the phonebook from the starting index to the ending index following a direction.
-        if (direction.equals("f"))
-        {
-            // Move the contacts from the starting index to the ending index following a direction.
-            for (int i = start; i < end; i++)
-            {
-                if (i + 1 < this.getSize())
-                {
-                    this.contacts[i + 1] = this.contacts[i];
-                }
-            }
-        }
-        // Move the contacts from the ending index to the starting index following a direction.
-        else if (direction.equals("b"))
-        {
-            for (int i = end; i > start; i--)
-            {
-                if (i - 1 >= 0 && i < this.getSize()){
-                    this.contacts[i - 1] = this.contacts[i];
-                }
-            }
-        }
     }
 
     /**

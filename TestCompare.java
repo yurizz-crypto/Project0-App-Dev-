@@ -19,5 +19,6 @@ public class TestCompare {
     public static void main(String[] args) {
         TestCompare test = new TestCompare();
         test.test1();
+        test.test2();
     }
 }
