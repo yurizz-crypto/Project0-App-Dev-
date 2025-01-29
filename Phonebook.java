@@ -146,8 +146,18 @@ public class Phonebook
     {
         // Complete this method...
         if (isEmpty()){return null;}
-        return null;
 
+        for (int i = 0; i < this.getSize(); i++)
+        {
+            if (contacts[i].getId().equals(id))
+            {
+                Person deletedContact = contacts[i];
+                this.adjustPhonebook(i, this.getSize(), "f");
+                this.decrSize();
+                return deletedContact;
+            }
+        }
+        return null;
     }
 
     /**
