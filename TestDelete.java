@@ -3,7 +3,7 @@ import static org.junit.Assert.assertEquals;
 
 public class TestDelete {
 
-    private Phonebook pb;
+    private final Phonebook pb;
 
     public TestDelete() {
         pb = new Phonebook();
@@ -54,11 +54,11 @@ public class TestDelete {
         pb.insert(p1);
         pb.insert(p2);
         pb.insert(p3);
-        assertEquals(pb.getSize(), 3);
+        assertEquals(3, pb.getSize());
         pb.deleteContact(p1.getId());
         pb.deleteContact(p2.getId());
         pb.deleteContact(p3.getId());
-        assertEquals(pb.getSize(), 0);
+        assertEquals(0, pb.getSize());
         assertEquals(true, pb.isEmpty());
     }
 }
