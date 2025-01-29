@@ -19,7 +19,7 @@ public class Phonebook
     public int getSize()
     {
         // Complete this method
-        return 0;
+        return this.size;
     }
 
     /**
@@ -32,10 +32,7 @@ public class Phonebook
     {
         // Complete this method
         // Check if index is within size where there's a contact assigned.
-        if (index >= 0 && index < this.getSize())
-        {
-            return contacts[index];
-        }
+        if (index >= 0 && index < this.getSize()) {return contacts[index];}
         return null;
     }
 
@@ -51,10 +48,7 @@ public class Phonebook
         // Iterate then check if there's an equal ID and returns it.
         for (int i = 0; i < this.getSize(); i++)
         {
-            if (contacts[i].getId().equals(id))
-            {
-                return contacts[i];
-            }
+            if (contacts[i].getId().equals(id)) {return contacts[i];}
         }
         return null;
     }
@@ -110,6 +104,12 @@ public class Phonebook
     public void insert(Person p)
     {
         // Complete this method
+        if (this.getSize() == contacts.length) {this.increasePhonebookMaxSize();}
+
+        int i = this.findIndexInsertion(p);
+        this.adjustPhonebook(i, this.getSize(), "b");
+        contacts[i] = p;
+        this.incrSize();
     }
 
     /**
@@ -121,6 +121,8 @@ public class Phonebook
     private int findIndexInsertion(Person p)
     {
         // Complete this method
+        if (isEmpty()) {return 0;}
+
         // Iterate through the contacts and compare the person object.
         for (int i = 0; i < this.getSize(); i++)
         {
@@ -143,7 +145,9 @@ public class Phonebook
     public Person deleteContact(String id)
     {
         // Complete this method...
+        if (isEmpty()){return null;}
         return null;
+
     }
 
     /**
