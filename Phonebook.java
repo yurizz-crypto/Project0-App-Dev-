@@ -31,6 +31,11 @@ public class Phonebook
     public Person getContactAtIndex(int index)
     {
         // Complete this method
+        // Check if index is within size where there's a contact assigned.
+        if (index >= 0 && index < this.getSize())
+        {
+            return contacts[index];
+        }
         return null;
     }
 
@@ -43,6 +48,14 @@ public class Phonebook
     public Person getContact(String id)
     {
         // Complete this method
+        // Iterate then check if there's an equal ID and returns it.
+        for (int i = 0; i < this.getSize(); i++)
+        {
+            if (contacts[i].getId().equals(id))
+            {
+                return contacts[i];
+            }
+        }
         return null;
     }
 
