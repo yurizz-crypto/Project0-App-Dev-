@@ -60,4 +60,12 @@ public class TestAdd
         assertEquals(pb.getContactAtIndex(4).getFullName(), "David Teeger");
         assertEquals(pb.getContactAtIndex(0).getFullName(), "Charlizz Betista");
     }
+
+    public void main(String[] args) {
+        TestAdd test = new TestAdd();
+        test.test1();
+        test.test2();
+        test.test3();
+        test.test4();
+    }
 }

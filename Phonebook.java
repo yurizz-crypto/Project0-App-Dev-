@@ -91,11 +91,14 @@ public class Phonebook
     private void increasePhonebookMaxSize()
     {
         // Complete this method
+        // Declare new array with double the size of the current array.
         Person[] updatedContacts = new Person[contacts.length * 2];
         for (int i = 0; i < contacts.length; i++)
         {
+            // Copy the existing contacts.
             updatedContacts[i] = contacts[i];
         }
+        // Assign the new array to the current array.
         this.contacts = updatedContacts;
     }
 
@@ -118,7 +121,17 @@ public class Phonebook
     private int findIndexInsertion(Person p)
     {
         // Complete this method
-        return 0;
+        // Iterate through the contacts and compare the person object.
+        for (int i = 0; i < this.getSize(); i++)
+        {
+            // If the person object is less than the current contact, it means it is where it should be inserted.
+            if (p.compareTo(contacts[i]) < 0)
+            {
+                return i;
+            }
+        }
+        // If the person object is greater than all the contacts, it should be inserted at the end.
+        return this.getSize();
     }
 
     /**
@@ -146,8 +159,10 @@ public class Phonebook
     private void adjustPhonebook(int start, int end, String direction)
     {
         // Complete this method...
+        // Check if direction is forward or backward.
         if (direction.equals("f"))
-        {
+        {   
+            // Move the contacts to the left.
             for (int i = start; i < end; i++)
             {
                 if (i + 1 < contacts.length) {
@@ -157,6 +172,7 @@ public class Phonebook
         }
         else if (direction.equals("b"))
         {
+            // Move the contacts to the right.
             for (int i = end; i > start; i--)
             {
                 if (i - 1 >= 0) {
