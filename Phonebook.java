@@ -91,6 +91,12 @@ public class Phonebook
     private void increasePhonebookMaxSize()
     {
         // Complete this method
+        Person[] updatedContacts = new Person[contacts.length * 2];
+        for (int i = 0; i < contacts.length; i++)
+        {
+            updatedContacts[i] = contacts[i];
+        }
+        this.contacts = updatedContacts;
     }
 
     /**
@@ -140,6 +146,24 @@ public class Phonebook
     private void adjustPhonebook(int start, int end, String direction)
     {
         // Complete this method...
+        if (direction.equals("f"))
+        {
+            for (int i = start; i < end; i++)
+            {
+                if (i + 1 < contacts.length) {
+                    contacts[i] = contacts[i + 1];
+                }
+            }
+        }
+        else if (direction.equals("b"))
+        {
+            for (int i = end; i > start; i--)
+            {
+                if (i - 1 >= 0) {
+                    contacts[i] = contacts[i - 1];
+                }
+            }
+        }
     }
 
     /**
