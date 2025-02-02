@@ -19,6 +19,19 @@ public class Main
     public static void main(String[] args)
     {
         Phonebook pb = new Phonebook();
+        // For Testing
+        Person p1 = new Person("123", "Juan", "Dela Cruz", "Male", "Faculty", "12345", 63, 81);
+        Person p2 = new Person("321", "Maria", "Clara", "Female", "Maiden", "18721", 63, 122);
+        Person p3 = new Person("67667", "Jose", "Rizal", "Male", "Makata", "19911", 60, 12);
+        Person p4 =
+                new Person("11919", "Charlizz", "Betista", "Male", "Programmer", "10091", 670, 195);
+        Person p5 = new Person("86711", "David", "Teeger", "Male", "Teacher", "997751", 84, 100);
+        pb.insert(p5);
+        pb.insert(p2);
+        pb.insert(p4);
+        pb.insert(p1);
+        pb.insert(p3);
+
         boolean exit = false;
         while (true)
         {
@@ -32,7 +45,26 @@ public class Main
                     pb.insert(createNewPerson());
                     break;
                 case 2:
-                    break;
+                    while (true)
+                    {
+                        String ID = prompt("Enter Contact ID ('q' to quit): ");
+                        Person P = pb.getContact(ID);
+                        if (ID.equals("q")) {exit = true; break;}
+
+                        if (P != null)
+                        {
+                            while (true) {
+                                System.out.println("Information about" + ID + " : " + P.toString());
+                                showMenu(1, 1);
+                                int toEdit = Integer.parseInt(prompt(": "));
+                                break;
+                            }
+                        }
+                        else
+                        {
+                            System.out.println("Contact not found.");
+                        }
+                    }
                 case 3:
                     String id = prompt("Enter contact ID to delete: ");
                     Person p = pb.getContact(id);
@@ -132,7 +164,7 @@ public class Main
      * 3 for View Phonebook Menu. <br>
      * <br>
      * 4 for Country Code Menu.
-     * 
+     *
      * @param menuIdx Index of the menu to be shown.
      * @param inlineTexts Number of menu options to be printed in a single line. Set to 1 if you
      *        want every line to only have one menu option.
@@ -159,7 +191,7 @@ public class Main
 
     /**
      * Convert choices from the menu into their appropriate country code values.
-     * 
+     *
      * @return Country code value of the menu choice.
      */
     private int convertChoices(int choice)
@@ -170,7 +202,7 @@ public class Main
 
     /**
      * Create a new person object using a slightly complicated setup.
-     * 
+     *
      * @return Newly created person object.
      */
     private static Person createNewPerson()
@@ -191,7 +223,7 @@ public class Main
     /**
      * Receive prompt and return the inputted value back to the variable or process that requires
      * it. Data type is String. Do not forget to type cast if possible.
-     * 
+     *
      * @param phrase Phrase to be given to user when requiring input.
      * @return Returns the data needed.
      */

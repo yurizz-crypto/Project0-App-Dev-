@@ -104,11 +104,16 @@ public class Phonebook
     public void insert(Person p)
     {
         // Complete this method
+        // Doubles the size of the array if full.
         if (this.getSize() == contacts.length) {this.increasePhonebookMaxSize();}
 
+        // Gets the appropriate index for where the new contact should be assigned.
         int i = this.findIndexInsertion(p);
+        // Shifts the phonebook contacts "backward".
         this.adjustPhonebook(i, this.getSize(), "b");
+        // Assigns the new contact to the index after shifting to prevent loss of already added contact.
         contacts[i] = p;
+        // Increases the size of the contacts added not the length of the array.
         this.incrSize();
     }
 
@@ -127,10 +132,7 @@ public class Phonebook
         for (int i = 0; i < this.getSize(); i++)
         {
             // If the person object is less than the current contact, it means it is where it should be inserted.
-            if (p.compareTo(contacts[i]) < 0)
-            {
-                return i;
-            }
+            if (p.compareTo(contacts[i]) < 0) {return i;}
         }
         // If the person object is greater than all the contacts, it should be inserted at the end.
         return this.getSize();
@@ -145,14 +147,19 @@ public class Phonebook
     public Person deleteContact(String id)
     {
         // Complete this method...
+        // Checks if the phonebook is empty, if true returns terminates the method.
         if (isEmpty()){return null;}
 
+        // Iterate the contacts and check if the given contact is present.
         for (int i = 0; i < this.getSize(); i++)
         {
             if (contacts[i].getId().equals(id))
             {
+                // Assigning the contact to save it for returning.
                 Person deletedContact = contacts[i];
+                // Shifts the phonebook to the right from where the contact is to be removed.
                 this.adjustPhonebook(i, this.getSize(), "f");
+                // Decrements the size or the total number of non-null index of the phonebook.
                 this.decrSize();
                 return deletedContact;
             }
@@ -175,8 +182,8 @@ public class Phonebook
         // Complete this method...
         // Check if direction is forward or backward.
         if (direction.equals("f"))
-        {   
-            // Move the contacts to the left.
+        {
+            // Shifts elements to the right.
             for (int i = start; i < end; i++)
             {
                 if (i + 1 < contacts.length) {
@@ -186,7 +193,7 @@ public class Phonebook
         }
         else if (direction.equals("b"))
         {
-            // Move the contacts to the right.
+            // Shifts elements to the left.
             for (int i = end; i > start; i--)
             {
                 if (i - 1 >= 0) {
@@ -222,6 +229,11 @@ public class Phonebook
     public String toString()
     {
         // Complete this method.
-        return "";
+        String s = "\nContacts Added: \n";
+        for (int i = 0; i < this.getSize(); i++)
+        {
+            s += contacts[i].toString() + "\n";
+        }
+        return s;
     }
 }
