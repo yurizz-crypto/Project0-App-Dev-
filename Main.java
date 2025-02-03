@@ -23,8 +23,7 @@ public class Main
         Person p1 = new Person("123", "Juan", "Dela Cruz", "Male", "Faculty", "12345", 63, 81);
         Person p2 = new Person("321", "Maria", "Clara", "Female", "Maiden", "18721", 63, 122);
         Person p3 = new Person("67667", "Jose", "Rizal", "Male", "Makata", "19911", 60, 12);
-        Person p4 =
-                new Person("11919", "Charlizz", "Betista", "Male", "Programmer", "10091", 670, 195);
+        Person p4 = new Person("11919", "Charlizz", "Betista", "Male", "Programmer", "10091", 670, 195);
         Person p5 = new Person("86711", "David", "Teeger", "Male", "Teacher", "997751", 84, 100);
         pb.insert(p5);
         pb.insert(p2);
@@ -42,7 +41,17 @@ public class Main
             switch (opt)
             {
                 case 1:
-                    pb.insert(createNewPerson());
+                    while (true){
+                        pb.insert(createNewPerson());
+                        System.out.println("Do you want to enter another entry [Y/N]? ");
+                        if (input.nextLine().toLowerCase().equals("y")) {
+                            System.out.println("\n");
+                            continue;
+                        }
+                        else {
+                            break;
+                        }
+                    }
                     break;
                 case 2:
                     while (true)
@@ -54,17 +63,53 @@ public class Main
                         if (P != null)
                         {
                             while (true) {
-                                System.out.println("Information about" + ID + " : " + P.toString());
-                                showMenu(1, 1);
-                                int toEdit = Integer.parseInt(prompt(": "));
-                                break;
+                                System.out.println("\nInformation about " + ID + " : \n" + P.toString() + "\n");
+                                showMenu(2, 3);
+                                int toEdit = Integer.parseInt(prompt("\nEnter choice: "));
+
+                                if (toEdit == 8) {break;}
+                                else if (toEdit == 1) {
+                                    System.out.println("\nEnter new student number: ");
+                                    String newStudentNumber = input.nextLine();
+                                    P.setId(newStudentNumber);
+                                } else if (toEdit == 2) {
+                                    System.out.println("\nEnter new first name: ");
+                                    String newFirstName = input.nextLine();
+                                    P.setFName(newFirstName);
+                                } else if (toEdit == 3) {
+                                    System.out.println("\nEnter new last name: ");
+                                    String newLastName = input.nextLine();
+                                    P.setLName(newLastName);
+                                } else if (toEdit == 4) {
+                                    System.out.println("\nEnter new occupation: ");
+                                    String newOccupation = input.nextLine();
+                                    P.setOccupation(newOccupation);
+                                } else if (toEdit == 5) {
+                                    System.out.println("\nEnter new country code: ");
+                                    int newCountryCode = input.nextInt();
+                                    P.setCountryCode(newCountryCode);
+                                    input.nextLine();
+                                } else if (toEdit == 6) {
+                                    System.out.println("\nEnter new area code: ");
+                                    int newAreaCode = input.nextInt();
+                                    P.setAreaCode(newAreaCode);
+                                    input.nextLine();
+                                } else if (toEdit == 7) {
+                                    System.out.println("\nEnter new phone number: ");
+                                    String newPhoneNumber = input.nextLine();
+                                    P.setContactNum(newPhoneNumber);
+                                } else {
+                                    System.out.println("\nInvalid Input! Try Again.");
+                                }
                             }
                         }
                         else
                         {
                             System.out.println("Contact not found.");
                         }
+                        break;
                     }
+                    continue;
                 case 3:
                     String id = prompt("Enter contact ID to delete: ");
                     Person p = pb.getContact(id);
@@ -86,10 +131,7 @@ public class Main
                     {
                         showMenu(3, 1);
                         int showOpt = Integer.parseInt(prompt("Enter option:"));
-                        if (showOpt == 1)
-                        {
-                            System.out.println(pb);
-                        }
+                        if (showOpt == 1) {System.out.println(pb);}
                         else if (showOpt == 2)
                         {
                             String targetId = prompt("Enter id to search: ");
@@ -109,11 +151,11 @@ public class Main
                             int[] countryCodes = new int[9];
                             while (true)
                             {
-                                int countryCode = Integer.parseInt("Enter Country Code: ");
+                                int countryCode = Integer.parseInt(prompt("Enter Country Code: "));
                                 // Print if input is 0
                                 if (countryCode == 0)
                                 {
-                                    pb.printContactsFromCountryCodes(countryCodes);
+                                    System.out.println(pb.printContactsFromCountryCodes(countryCodes));
                                     break;
                                 }
                                 // Check if area code is already inputted

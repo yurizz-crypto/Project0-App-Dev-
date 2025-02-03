@@ -99,14 +99,15 @@ public class Phonebook
     /**
      * Inserts a new person object at its appropriate lexicographic location in the phonebook.
      * 
-     * @param p Person to be addded to the Phonebook.
+     * @param p Person to be added to the Phonebook.
      */
     public void insert(Person p)
     {
         // Complete this method
         // Doubles the size of the array if full.
         if (this.getSize() == contacts.length) {this.increasePhonebookMaxSize();}
-
+        // Checks if the contact is already in the phonebook, if yes terminates insertion.
+        for (int index = 0; index < size; index++){if (contacts[index].getFullName().equals(p.getFullName())){return;}}
         // Gets the appropriate index for where the new contact should be assigned.
         int i = this.findIndexInsertion(p);
         // Shifts the phonebook contacts "backward".
@@ -218,7 +219,15 @@ public class Phonebook
     public String printContactsFromCountryCodes(int... countryCodes)
     {
         // Complete this method.
-        return "";
+        String list = "\nContacts Under the Area Code(s): \n";
+        int index = 0;
+        while (index < size){
+            for (int i = 0; i < countryCodes.length; i++){
+                if (contacts[index].getAreaCode() == countryCodes[i]){list += contacts[index].toString() + "\n";}
+            }
+            index++;
+        }
+        return list;
     }
 
     /**
@@ -230,10 +239,7 @@ public class Phonebook
     {
         // Complete this method.
         String s = "\nContacts Added: \n";
-        for (int i = 0; i < this.getSize(); i++)
-        {
-            s += contacts[i].toString() + "\n";
-        }
+        for (int i = 0; i < size; i++) {s += contacts[i].toString() + "\n";}
         return s;
     }
 }
