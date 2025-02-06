@@ -219,12 +219,17 @@ public class Phonebook
     public String printContactsFromCountryCodes(int... countryCodes)
     {
         // Complete this method.
-        String list = "\nContacts Under the Area Code(s): \n";
+        String list = "";
         int index = 0;
+        // Iterate through the contacts but limited to non-null indices.
         while (index < size){
-            for (int i = 0; i < countryCodes.length; i++){
-                if (contacts[index].getCountryCode() == countryCodes[i]){
-                    list += contacts[index].toString() + "\n";}
+            // Comparing each country code to each of the country codes of the entries.
+            for (int countryCode : countryCodes) {
+                // Check if a contacts has the same country to one of the elements of the given integer array.
+                if (contacts[index].getCountryCode() == countryCode) {
+                    // Concatenate the string representation of the person to the string variable "list."
+                    list += contacts[index].toString() + "\n\n";
+                }
             }
             index++;
         }

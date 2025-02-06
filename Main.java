@@ -1,3 +1,4 @@
+import javax.swing.plaf.synth.SynthStyle;
 import java.util.Scanner;
 
 public class Main
@@ -146,7 +147,7 @@ public class Main
                             }
                             else
                             {
-                                System.out.println("No contact exists with that surname!");
+                                System.out.println("No contact exists with that ID number!");
                             }
                         }
                         else if (showOpt == 3)
@@ -155,21 +156,33 @@ public class Main
                             int[] countryCodes = new int[9];
                             while (true)
                             {
-                                showMenu(4, 2);
+                                System.out.println("From which country:");
+                                showMenu(4, 3);
                                 int countryCode = Integer.parseInt(prompt("\nEnter Country Code: "));
                                 // Print if input is 0
                                 if (countryCode == 0)
                                 {
+                                    String head = "\nHere are the contact(s) from ";
+
+                                    if (ccCount == 1) {head += MENUS[3][0]; }
+                                    else if (ccCount > 1)
+                                    {
+                                        for (int i = 0; i < ccCount; i++)
+                                        {
+                                            if (i > 0) {head += (i == ccCount - 1) ? " and " : ", ";}
+                                            head += MENUS[3][i] + ".";
+                                        }
+                                    }
+                                    System.out.println(head);
                                     System.out.println(pb.printContactsFromCountryCodes(countryCodes));
                                     break;
                                 }
 
-                                int countryChoice = convertChoices(countryCode);
                                 // Check if area code is already inputted
                                 boolean exists = false;
                                 for (int a : countryCodes)
                                 {
-                                    if (a == countryChoice)
+                                    if (a == countryCode)
                                     {
                                         System.out.println(
                                                 "This area code has already been inputted!\n");
@@ -180,7 +193,7 @@ public class Main
                                 // Only add if area codes isn't part of the array...
                                 if (!exists)
                                 {
-                                    countryCodes[ccCount] = countryChoice;
+                                    countryCodes[ccCount] = convertChoices(countryCode);
                                     ccCount++;
                                 }
 
