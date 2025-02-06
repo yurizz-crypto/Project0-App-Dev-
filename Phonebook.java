@@ -223,7 +223,8 @@ public class Phonebook
         int index = 0;
         while (index < size){
             for (int i = 0; i < countryCodes.length; i++){
-                if (contacts[index].getAreaCode() == countryCodes[i]){list += contacts[index].toString() + "\n";}
+                if (contacts[index].getCountryCode() == countryCodes[i]){
+                    list += contacts[index].toString() + "\n";}
             }
             index++;
         }

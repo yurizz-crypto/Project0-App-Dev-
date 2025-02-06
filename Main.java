@@ -13,7 +13,11 @@ public class Main
             {
                     // Menu for View Phonebook
                     "View All", "View Contact through ID", "View Contacts through Country Code",
-                    "Go back to Main Menu" }, };
+                    "Go back to Main Menu" },
+            {
+                    // Menu for View Contacts by Country Code
+                    "Malaysia", "Indonesia", "Philippines", "Singapore", "Thailand", "Vietnam", "Brunei", "Cambodia", "Lao",
+                    "Myanmar", "Timor Leste"}};
     private static final Scanner input = new Scanner(System.in);
 
     public static void main(String[] args)
@@ -44,7 +48,7 @@ public class Main
                     while (true){
                         pb.insert(createNewPerson());
                         System.out.println("Do you want to enter another entry [Y/N]? ");
-                        if (input.nextLine().toLowerCase().equals("y")) {
+                        if (input.nextLine().equalsIgnoreCase("y")) {
                             System.out.println("\n");
                             continue;
                         }
@@ -151,21 +155,24 @@ public class Main
                             int[] countryCodes = new int[9];
                             while (true)
                             {
-                                int countryCode = Integer.parseInt(prompt("Enter Country Code: "));
+                                showMenu(4, 2);
+                                int countryCode = Integer.parseInt(prompt("\nEnter Country Code: "));
                                 // Print if input is 0
                                 if (countryCode == 0)
                                 {
                                     System.out.println(pb.printContactsFromCountryCodes(countryCodes));
                                     break;
                                 }
+
+                                int countryChoice = convertChoices(countryCode);
                                 // Check if area code is already inputted
                                 boolean exists = false;
                                 for (int a : countryCodes)
                                 {
-                                    if (a == countryCode)
+                                    if (a == countryChoice)
                                     {
                                         System.out.println(
-                                                "This area code has already been inputted!");
+                                                "This area code has already been inputted!\n");
                                         exists = true;
                                         break;
                                     }
@@ -173,7 +180,7 @@ public class Main
                                 // Only add if area codes isn't part of the array...
                                 if (!exists)
                                 {
-                                    countryCodes[ccCount] = countryCode;
+                                    countryCodes[ccCount] = countryChoice;
                                     ccCount++;
                                 }
 
@@ -236,10 +243,22 @@ public class Main
      *
      * @return Country code value of the menu choice.
      */
-    private int convertChoices(int choice)
+    private static int convertChoices(int choice)
     {
         // Complete this method.
-        return 0;
+        switch (choice) {
+            case 1: return 60;
+            case 2: return 62;
+            case 3: return 63;
+            case 4: return 65;
+            case 5: return 66;
+            case 6: return 84;
+            case 7: return 673;
+            case 8: return 855;
+            case 9: return 856;
+            case 10: return 95;
+            default: return 670;
+        }
     }
 
     /**
