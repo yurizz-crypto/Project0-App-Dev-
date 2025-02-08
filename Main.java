@@ -1,4 +1,3 @@
-import javax.swing.plaf.synth.SynthStyle;
 import java.util.Scanner;
 
 public class Main
@@ -18,201 +17,207 @@ public class Main
             {
                     // Menu for View Contacts by Country Code
                     "Malaysia", "Indonesia", "Philippines", "Singapore", "Thailand", "Vietnam", "Brunei", "Cambodia", "Lao",
-                    "Myanmar", "Timor Leste"}};
+                    "Myanmar", "Timor Leste", "All", "No more"}};
     private static final Scanner input = new Scanner(System.in);
 
     public static void main(String[] args)
     {
         Phonebook pb = new Phonebook();
-        // For Testing
-        Person p1 = new Person("123", "Juan", "Dela Cruz", "Male", "Faculty", "12345", 63, 81);
-        Person p2 = new Person("321", "Maria", "Clara", "Female", "Maiden", "18721", 63, 122);
-        Person p3 = new Person("67667", "Jose", "Rizal", "Male", "Makata", "19911", 60, 12);
-        Person p4 = new Person("11919", "Charlizz", "Betista", "Male", "Programmer", "10091", 670, 195);
-        Person p5 = new Person("86711", "David", "Teeger", "Male", "Teacher", "997751", 84, 100);
-        pb.insert(p5);
-        pb.insert(p2);
-        pb.insert(p4);
-        pb.insert(p1);
-        pb.insert(p3);
 
         boolean exit = false;
-        while (true)
-        {
+        while (true) {
             showMenu(1, 1);
-            // System.out.print("Select an option: ");
-            // int opt = input.nextInt();
-            int opt = Integer.parseInt(prompt("Select an option: "));
-            switch (opt)
-            {
+            int opt;
+            try {
+                opt = Integer.parseInt(prompt("Select an option: "));
+            } catch (NumberFormatException e) {
+                System.out.println("\nInvalid input! Please enter a number.");
+                continue;
+            }
+            System.out.print("\n");
+
+            switch (opt) {
                 case 1:
-                    while (true){
+                    while (true) {
                         pb.insert(createNewPerson());
                         System.out.println("Do you want to enter another entry [Y/N]? ");
-                        if (input.nextLine().equalsIgnoreCase("y")) {
-                            System.out.println("\n");
-                            continue;
-                        }
-                        else {
+                        String choice = input.nextLine();
+                        if (!choice.equalsIgnoreCase("y")) {
+                            System.out.print("\n");
                             break;
                         }
+                        System.out.print("\n");
                     }
                     break;
+
                 case 2:
-                    while (true)
-                    {
+                    while (true) {
                         String ID = prompt("Enter Contact ID ('q' to quit): ");
+                        if (ID.equals("q")) break; // Exit outer loop
+
                         Person P = pb.getContact(ID);
-                        if (ID.equals("q")) {exit = true; break;}
-
-                        if (P != null)
-                        {
+                        if (P != null) {
                             while (true) {
-                                System.out.println("\nInformation about " + ID + " : \n" + P.toString() + "\n");
+                                System.out.println("\nInformation about " + ID + " : \n" + P + "\n");
                                 showMenu(2, 3);
-                                int toEdit = Integer.parseInt(prompt("\nEnter choice: "));
 
-                                if (toEdit == 8) {break;}
-                                else if (toEdit == 1) {
-                                    System.out.println("\nEnter new student number: ");
-                                    String newStudentNumber = input.nextLine();
-                                    P.setId(newStudentNumber);
-                                } else if (toEdit == 2) {
-                                    System.out.println("\nEnter new first name: ");
-                                    String newFirstName = input.nextLine();
-                                    P.setFName(newFirstName);
-                                } else if (toEdit == 3) {
-                                    System.out.println("\nEnter new last name: ");
-                                    String newLastName = input.nextLine();
-                                    P.setLName(newLastName);
-                                } else if (toEdit == 4) {
-                                    System.out.println("\nEnter new occupation: ");
-                                    String newOccupation = input.nextLine();
-                                    P.setOccupation(newOccupation);
-                                } else if (toEdit == 5) {
-                                    System.out.println("\nEnter new country code: ");
-                                    int newCountryCode = input.nextInt();
-                                    P.setCountryCode(newCountryCode);
-                                    input.nextLine();
-                                } else if (toEdit == 6) {
-                                    System.out.println("\nEnter new area code: ");
-                                    int newAreaCode = input.nextInt();
-                                    P.setAreaCode(newAreaCode);
-                                    input.nextLine();
-                                } else if (toEdit == 7) {
-                                    System.out.println("\nEnter new phone number: ");
-                                    String newPhoneNumber = input.nextLine();
-                                    P.setContactNum(newPhoneNumber);
-                                } else {
-                                    System.out.println("\nInvalid Input! Try Again.");
+                                String toEdit = prompt("\nEnter choice: ").trim();
+
+                                if (toEdit.equals("8")) break; // Exit inner loop
+
+                                switch (toEdit) {
+                                    case "1":
+                                        System.out.println("Enter new student number: ");
+                                        P.setId(input.nextLine());
+                                        break;
+
+                                    case "2":
+                                        System.out.println("Enter new first name: ");
+                                        P.setFName(input.nextLine());
+                                        break;
+
+                                    case "3":
+                                        System.out.println("Enter new last name: ");
+                                        P.setLName(input.nextLine());
+                                        pb.insert(pb.deleteContact(P.getId()));
+                                        break;
+
+                                    case "4":
+                                        System.out.println("Enter new occupation: ");
+                                        P.setOccupation(input.nextLine());
+                                        break;
+
+                                    case "5":
+                                        System.out.println("Enter new country code: ");
+                                        try {
+                                            P.setCountryCode(Integer.parseInt(input.nextLine()));
+                                        } catch (NumberFormatException e) {
+                                            System.out.println("Invalid input! Try again.");
+                                        }
+                                        break;
+
+                                    case "6":
+                                        System.out.println("Enter new area code: ");
+                                        try {
+                                            P.setAreaCode(Integer.parseInt(input.nextLine()));
+                                        } catch (NumberFormatException e) {
+                                            System.out.println("Invalid input! Try again.");
+                                        }
+                                        break;
+
+                                    case "7":
+                                        System.out.println("Enter new phone number: ");
+                                        P.setContactNum(input.nextLine());
+                                        break;
+
+                                    default:
+                                        System.out.println("Invalid Input! Try Again.");
                                 }
                             }
-                        }
-                        else
-                        {
+                        } else {
                             System.out.println("Contact not found.");
+                            continue;
                         }
                         break;
                     }
-                    continue;
+                    break;
                 case 3:
                     String id = prompt("Enter contact ID to delete: ");
                     Person p = pb.getContact(id);
-                    if (p != null)
-                    {
-                        Person deletedContact = pb.deleteContact(id);
-                        if (deletedContact != null)
-                        {
+                    if (p != null) {
+                        if (pb.deleteContact(id) != null) {
                             System.out.println("Contact has been successfully deleted!");
                         }
-                    }
-                    else
-                    {
+                    } else {
                         System.out.println("This contact does not exist!");
                     }
                     break;
+
                 case 4:
-                    while (true)
-                    {
+                    while (true) {
                         showMenu(3, 1);
-                        int showOpt = Integer.parseInt(prompt("Enter option:"));
-                        if (showOpt == 1) {System.out.println(pb);}
+                        int showOpt;
+                        try {
+                            showOpt = Integer.parseInt(prompt("Enter option: "));
+                        } catch (NumberFormatException e) {
+                            System.out.println("\nInvalid input! Please enter a number.");
+                            continue;
+                        }
+
+                        if (showOpt == 1)
+                        {
+                            System.out.println("\nContacts Added to Phonebook:\n" + pb);
+                        }
                         else if (showOpt == 2)
                         {
                             String targetId = prompt("Enter id to search: ");
                             Person target = pb.getContact(targetId);
-                            if (target != null)
-                            {
-                                System.out.println(target);
-                            }
-                            else
-                            {
-                                System.out.println("No contact exists with that ID number!");
-                            }
+                            System.out.println(target != null ? "Information about " + targetId + " : \n" + target + "\n" : "No contact exists with that ID number!");
                         }
                         else if (showOpt == 3)
                         {
                             int ccCount = 0;
-                            int[] countryCodes = new int[9];
+                            int[] countryCodes = new int[11];
                             while (true)
                             {
                                 System.out.println("From which country:");
                                 showMenu(4, 3);
-                                int countryCode = Integer.parseInt(prompt("\nEnter Country Code: "));
-                                // Print if input is 0
-                                if (countryCode == 0)
-                                {
-                                    String head = "\nHere are the contact(s) from ";
+                                System.out.print("\n");
+                                int countryCode;
+                                try {
+                                    countryCode = Integer.parseInt(prompt("\nEnter Country Code: "));
+                                } catch (NumberFormatException e) {
+                                    System.out.println("\nInvalid input! Try again.");
+                                    continue;
+                                }
 
-                                    if (ccCount == 1) {head += MENUS[3][0]; }
-                                    else if (ccCount > 1)
-                                    {
-                                        for (int i = 0; i < ccCount; i++)
-                                        {
-                                            if (i > 0) {head += (i == ccCount - 1) ? " and " : ", ";}
-                                            head += MENUS[3][i] + ".";
-                                        }
+                                if (ccCount == 11 || countryCode == 12) {
+                                    System.out.println("\nHere are the contact(s) from all countries:\n" + pb);
+                                    break;
+                                }
+
+                                // Print if input is 0
+                                if (countryCode == 0) {
+                                    System.out.print("\nHere are the contact(s) from ");
+                                    for (int i = 0; i < ccCount; i++) {
+                                        if (i > 0) System.out.print((i == ccCount - 1) ? " and " : ", ");
+                                        System.out.print(MENUS[3][i]); System.out.println(".");
                                     }
-                                    System.out.println(head);
-                                    System.out.println(pb.printContactsFromCountryCodes(countryCodes));
+                                    System.out.println("\n" + pb.printContactsFromCountryCodes(countryCodes));
                                     break;
                                 }
 
                                 // Check if area code is already inputted
                                 boolean exists = false;
-                                for (int a : countryCodes)
-                                {
-                                    if (a == countryCode)
-                                    {
-                                        System.out.println(
-                                                "This area code has already been inputted!\n");
+                                for (int a : countryCodes) {
+                                    if (a == convertChoices(countryCode)) {
+                                        System.out.println("This area code has already been inputted!\n");
                                         exists = true;
                                         break;
                                     }
                                 }
                                 // Only add if area codes isn't part of the array...
-                                if (!exists)
-                                {
-                                    countryCodes[ccCount] = convertChoices(countryCode);
-                                    ccCount++;
+                                if (!exists) {
+                                    countryCodes[ccCount++] = convertChoices(countryCode);
                                 }
-
                             }
-                        }
-                        else if (showOpt == 4)
-                        {
+                        } else if (showOpt == 4) {
                             break;
+                        } else {
+                            System.out.println("Invalid input! Try again.");
                         }
                     }
                     break;
+
                 case 5:
                     exit = true;
                     break;
+
                 default:
                     System.out.println("Invalid option!");
             }
-            if (exit)
-                break;
+
+            if (exit) break;
         }
     }
 
@@ -259,19 +264,19 @@ public class Main
     private static int convertChoices(int choice)
     {
         // Complete this method.
-        switch (choice) {
-            case 1: return 60;
-            case 2: return 62;
-            case 3: return 63;
-            case 4: return 65;
-            case 5: return 66;
-            case 6: return 84;
-            case 7: return 673;
-            case 8: return 855;
-            case 9: return 856;
-            case 10: return 95;
-            default: return 670;
-        }
+        return switch (choice) {
+            case 1 -> 60;
+            case 2 -> 62;
+            case 3 -> 63;
+            case 4 -> 65;
+            case 5 -> 66;
+            case 6 -> 84;
+            case 7 -> 673;
+            case 8 -> 855;
+            case 9 -> 856;
+            case 10 -> 95;
+            default -> 670;
+        };
     }
 
     /**
@@ -287,11 +292,12 @@ public class Main
         fname = prompt("Enter First Name: ");
         lname = prompt("Enter Last Name: ");
         occupation = prompt("Enter Occupation: ");
-        sex = prompt("Enter sex/gender: ");
+        sex = prompt("Enter sex/gender (M for male, F for female): ");
+        String properSex = sex.toUpperCase().equals("M")? "Male" : "Female";
         countryCode = Integer.parseInt(prompt("Enter Country Code: "));
         areaCode = Integer.parseInt(prompt("Enter Area Code: "));
         contactNum = prompt("Enter Contact Number: ");
-        return new Person(id, fname, lname, sex, occupation, contactNum, countryCode, areaCode);
+        return new Person(id, fname, lname, properSex, occupation, contactNum, countryCode, areaCode);
     }
 
     /**

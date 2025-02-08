@@ -143,15 +143,8 @@ public class Person implements Comparable<Person>
         // DO NOT REMOVE THE @Override TAG
         int lastNameComparison = this.lname.compareTo(o.lname);
         // If the last names are the same, compare the first names using the compareTo() method.
-        if (lastNameComparison != 0)
-        {
-            return lastNameComparison;
-        }
-        else
-        {
-            return this.fname.compareTo(o.fname);
-            
-        }
+        if (lastNameComparison != 0) {return lastNameComparison;}
+        else {return this.fname.compareTo(o.fname);}
     }
 
     /**

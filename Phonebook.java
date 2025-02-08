@@ -244,8 +244,10 @@ public class Phonebook
     public String toString()
     {
         // Complete this method.
-        String s = "\nContacts Added: \n";
+        String s = "";
+        // Concatenates all string representation of all contact elements in the array to string variable to s.
         for (int i = 0; i < size; i++) {s += contacts[i].toString() + "\n";}
+        // Returns the list of all contacts of the phonebook.
         return s;
     }
 }
