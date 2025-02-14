@@ -24,18 +24,6 @@ public class Main
     {
         Phonebook pb = new Phonebook();
 
-        Person p1 = new Person("123", "Juan", "Dela Cruz", "Male", "Faculty", "12345", 63, 81);
-        Person p2 = new Person("321", "Maria", "Clara", "Female", "Maiden", "18721", 63, 122);
-        Person p3 = new Person("67667", "Jose", "Rizal", "Male", "Makata", "19911", 60, 12);
-        Person p4 =
-                new Person("11919", "Charlizz", "Betista", "Male", "Programmer", "10091", 670, 195);
-        Person p5 = new Person("86711", "David", "Teeger", "Male", "Teacher", "997751", 84, 100);
-        pb.insert(p5);
-        pb.insert(p2);
-        pb.insert(p4);
-        pb.insert(p1);
-        pb.insert(p3);
-
         boolean exit = false;
         while (true) {
             showMenu(1, 1);
@@ -168,7 +156,7 @@ public class Main
                         {
                             String targetId = prompt("Enter id to search: ");
                             Person target = pb.getContact(targetId);
-                            System.out.println(target != null ? "Information about " + targetId + " : \n" + target + "\n" : "No contact exists with that ID number!\n");
+                            System.out.println(target != null ? "\nInformation about " + targetId + ": \n" + target + "\n" : "No contact exists with that ID number!\n");
                         }
                         else if (showOpt == 3)
                         {
@@ -188,7 +176,7 @@ public class Main
                                     continue;
                                 }
 
-                                if (ccCount == 11 || countryCode == 12) {
+                                if (ccCount == 10 || countryCode == 12) {
                                     System.out.println("\nHere are the contact(s) from all countries:\n" + pb);
                                     break;
                                 }
@@ -198,6 +186,9 @@ public class Main
                                     System.out.print("\nHere are the contact(s) from ");
                                     if (pb.isEmpty()) {
                                         System.out.println("\nThe phonebook is empty...\n");
+                                        break;
+                                    } else if (ccCount == 0 && !pb.isEmpty()) {
+                                        System.out.println("\nNo country were chosen...\n");
                                         break;
                                     }
                                     for (int i = 0; i < ccCount; i++) {
@@ -315,7 +306,7 @@ public class Main
         lname = prompt("Enter Last Name: ");
         occupation = prompt("Enter Occupation: ");
         sex = prompt("Enter sex/gender (M for male, F for female): ");
-        String properSex = sex.toUpperCase().equals("M")? "Male" : "Female";
+        String properSex = sex.equalsIgnoreCase("M")? "Male" : "Female";
         countryCode = Integer.parseInt(prompt("Enter Country Code: "));
         areaCode = Integer.parseInt(prompt("Enter Area Code: "));
         contactNum = prompt("Enter Contact Number: ");
