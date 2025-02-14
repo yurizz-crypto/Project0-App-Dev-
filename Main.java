@@ -17,12 +17,24 @@ public class Main
             {
                     // Menu for View Contacts by Country Code
                     "Malaysia", "Indonesia", "Philippines", "Singapore", "Thailand", "Vietnam", "Brunei", "Cambodia", "Lao",
-                    "Myanmar", "Timor Leste", "All", "No more"}};
+                    "Myanmar", "Timor Leste", "All"}};
     private static final Scanner input = new Scanner(System.in);
 
     public static void main(String[] args)
     {
         Phonebook pb = new Phonebook();
+
+        Person p1 = new Person("123", "Juan", "Dela Cruz", "Male", "Faculty", "12345", 63, 81);
+        Person p2 = new Person("321", "Maria", "Clara", "Female", "Maiden", "18721", 63, 122);
+        Person p3 = new Person("67667", "Jose", "Rizal", "Male", "Makata", "19911", 60, 12);
+        Person p4 =
+                new Person("11919", "Charlizz", "Betista", "Male", "Programmer", "10091", 670, 195);
+        Person p5 = new Person("86711", "David", "Teeger", "Male", "Teacher", "997751", 84, 100);
+        pb.insert(p5);
+        pb.insert(p2);
+        pb.insert(p4);
+        pb.insert(p1);
+        pb.insert(p3);
 
         boolean exit = false;
         while (true) {
@@ -68,7 +80,8 @@ public class Main
                                 switch (toEdit) {
                                     case "1":
                                         System.out.println("Enter new student number: ");
-                                        P.setId(input.nextLine());
+                                        String studentNumber = input.nextLine();
+                                        P.setId(studentNumber);
                                         break;
 
                                     case "2":
@@ -147,12 +160,15 @@ public class Main
                         if (showOpt == 1)
                         {
                             System.out.println("\nContacts Added to Phonebook:\n" + pb);
+                            if (pb.isEmpty()) {
+                                System.out.println("The phonebook is empty...\n");
+                            }
                         }
                         else if (showOpt == 2)
                         {
                             String targetId = prompt("Enter id to search: ");
                             Person target = pb.getContact(targetId);
-                            System.out.println(target != null ? "Information about " + targetId + " : \n" + target + "\n" : "No contact exists with that ID number!");
+                            System.out.println(target != null ? "Information about " + targetId + " : \n" + target + "\n" : "No contact exists with that ID number!\n");
                         }
                         else if (showOpt == 3)
                         {
@@ -162,6 +178,7 @@ public class Main
                             {
                                 System.out.println("From which country:");
                                 showMenu(4, 3);
+                                System.out.print("[0] No more");
                                 System.out.print("\n");
                                 int countryCode;
                                 try {
@@ -179,11 +196,16 @@ public class Main
                                 // Print if input is 0
                                 if (countryCode == 0) {
                                     System.out.print("\nHere are the contact(s) from ");
+                                    if (pb.isEmpty()) {
+                                        System.out.println("\nThe phonebook is empty...\n");
+                                        break;
+                                    }
                                     for (int i = 0; i < ccCount; i++) {
                                         if (i > 0) System.out.print((i == ccCount - 1) ? " and " : ", ");
-                                        System.out.print(MENUS[3][i]); System.out.println(".");
+                                        System.out.print(MENUS[3][i]);
                                     }
-                                    System.out.println("\n" + pb.printContactsFromCountryCodes(countryCodes));
+                                    System.out.println(":");
+                                    System.out.println(pb.printContactsFromCountryCodes(countryCodes));
                                     break;
                                 }
 

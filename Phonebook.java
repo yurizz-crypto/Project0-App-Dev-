@@ -106,8 +106,6 @@ public class Phonebook
         // Complete this method
         // Doubles the size of the array if full.
         if (this.getSize() == contacts.length) {this.increasePhonebookMaxSize();}
-        // Checks if the contact is already in the phonebook, if yes terminates insertion.
-        for (int index = 0; index < size; index++){if (contacts[index].getFullName().equals(p.getFullName())){return;}}
         // Gets the appropriate index for where the new contact should be assigned.
         int i = this.findIndexInsertion(p);
         // Shifts the phonebook contacts "backward".
@@ -228,7 +226,7 @@ public class Phonebook
                 // Check if a contacts has the same country to one of the elements of the given integer array.
                 if (contacts[index].getCountryCode() == countryCode) {
                     // Concatenate the string representation of the person to the string variable "list."
-                    list += contacts[index].toString() + "\n\n";
+                    list += contacts[index].toString() + "\n";
                 }
             }
             index++;
